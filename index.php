@@ -120,7 +120,7 @@
         <footer id="foot">
         <br>Matt Taylor<br>
         CST 336<br>
-        November 10, 2020<br><br>
+        November 15, 2020<br><br>
         </footer>
 
         <script src="js/app.js"></script>
