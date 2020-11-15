@@ -9,32 +9,14 @@
     </head>
     
     <body>
+        <div id="top">
         <div class="jumbotron">
         <h1> Sign Up </h1>
         </div>
+        </div>
+        
+        <div id="signUpForm">
         <form id="signupForm" action="welcome.html">
-<!--
-        First Name: <input type="text"  name="fname"><br>
-        Last Name:  <input type="text"  name="lname"><br>
-        Gender:     <input type="radio"  name="fname" value="m"> Male
-                    <input type="radio"  name="fname" value="f"> Female<br>
-        Zip Code:   <input type="text" id="zip" name="zip"><br>
-        City:       <span id="city"></span><br>
-        Latitude:   <span id="latitude"></span><br><br>
-        Longitute:  <span id="longitude"></span><br><br>
-        State:
-        <select id="state" name="state">
-            <option> Select One </option>
-            <option value="ca"> California </option>
-            <option value="ny"> New York   </option>
-            <option value="tx"> Texas </option>
-        </select><br>
-        Desired Username: <input type="text" id="username" name="username">
-        <span id="usernameError"></span><br /><br>
-        Password:         <input type="text" id="password" name="password"><br>
-        Password Again    <input type="text" id="passwordAgain" >
-        <span id="passwordAgainError"></span><br /><br>
--->
 
         <div class="form-row">
             <div class="form-group col-md-5">
@@ -47,7 +29,7 @@
             </div>
         </div>
         
-        <div class="form-group">
+
         
         <fieldset class="form-group">
             <div class="row">
@@ -88,14 +70,16 @@
             </div>    
         </div>
         
+        <div class="form-row" id="validationRow">
+        	<div class="form-group col-md-4" id="zipError">
+        	</div>
+        </div>
+        
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label for="state">State:</label>
                 <select id="state" class="form-control" name="state">
                     <option> Select One </option>
-                    <option value="ca"> California </option>
-                    <option value="ny"> New York   </option>
-                    <option value="tx"> Texas </option>
                 </select>
             </div>
             <div class="form-group col-md-6">
@@ -128,103 +112,18 @@
         </div>
 
         <input id="submit" type="submit" value="Sign up!"><br>
+        <br>
         </form>
+        <br>
+        </div>
         
-        <script>
-            
-            var usernameAvailable = false;
-            //Display City from API after typing a zip code
-            $("#zip").on("change", async function(){
-                
-                //alert($("#zip").val());
-                let zipCode = $("#zip").val();
-                let url =  `https://cst336.herokuapp.com/projects/api/cityInfoAPI.php?zip=${zipCode}`;
-                let response = await fetch(url);
-                let data = await response.json();
-                //console.log(data);
-                //$("#city").html(data.city);
-                //$("#latitude").html(data.latitude);
-                //$("#longitude").html(data.longitude);
-                $("#city").val(data.city);
-                $("#latitude").val(data.latitude);
-                $("#longitude").val(data.longitude);
-                
-            }); //city
-            
-            $("#state").on("change", async function(){
-                
-                //alert($("#state").val());
-                let state = $("#state").val();
-                let url = `https://cst336.herokuapp.com/projects/api/countyListAPI.php?state=${state}`;
-                let response = await fetch(url);
-                let data = await response.json()
-                //console.log(data);
-                $("#county").html("<option> Select one </option>");
-            
-                data.forEach( function(i) {
-                    $("#county").append(`<option> ${i.county} </option>`)
-                });
-                
-            }); //state
-            
-            $("#username").on("change", async function(){
-               let user = $("#username").val();
-               let url = `https://cst336.herokuapp.com/projects/api/usernamesAPI.php?username=${user}`;
-               let response = await fetch(url);
-               let data = await response.json();
-               
-               console.log("User: " + user + " Available: " + data.available);
-               
-               if (data.available) {
-                   $("#usernameError").html("Username available");
-                   $("#usernameError").css("color","green");
-                   usernameAvailable = true;
-               }
-               else {
-                   $("#usernameError").html("Username unavailable");
-                   $("#usernameError").css("color","red");
-                   usernameAvailable = false;
-               }
-                
-            }); //username
-            
-            $("#signupForm").on("submit", function(e) {
-                
-                if (!isFormValid()) {
-                    e.preventDefault();    
-                }
-            
-            });
-            
-            function isFormValid(){
-                isValid = true;
-                
-                if (!usernameAvailable) {
-                    isValid = false;
-                }
-                
-                if ($("#username").val().length == 0) {
-                    isValid = false;
-                    $("#usernameError").html("Username is required");
-                    $("#usernameError").css("color","red");
-                }
-                
-                if ($("#password").val() != $("#passwordAgain").val()) {
-                    isValid = false;
-                    $("#passwordAgainError").html("Passwords Mismatch!");
-                    $("#passwordAgainError").css("color","red");
-                }
-                
-                if ($("#password").val().length < 6) {
-                    isValid = false;
-                    $("#passwordAgainError").html("Password must be at least 6 characters long!");
-                    $("#passwordAgainError").css("color","red");                    
-                }
-                
-                return isValid;
-            };
-            
-        </script>
-        
+        <footer id="foot">
+        <br>Matt Taylor<br>
+        CST 336<br>
+        November 10, 2020<br><br>
+        </footer>
+
+        <script src="js/app.js"></script>
+
     </body>
 </html>
